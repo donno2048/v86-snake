@@ -33,12 +33,15 @@ start:                      ; reset game
     mov di, [bx]            ; reset head position, BX always points to a valid screen position containing 0x720 after setting video mode
     lea sp, [bp+si]         ; set stack pointer (tail) to current head pointer
 .food:                      ; create new food item
-    in ax, 0x40             ; read 16 bit timer counter into AX for randomization
-    and bx, ax              ; mask with BX to make divisible by 4 and less than or equal to screen size
+    push di                 ; save old DI before overwriting for randomization
+.rand:                      ; lots of code to randomize food positions is better than initializing the PIC controller
+    xchg di, bx             ; alternate BX between head position (not to iterate over the same food locations) and the end of the screen
+    dec bh                  ; decreasing BH for randomization ensures BX is still divisble by 2 and if the snake isn't filling all the possible options, below 0x7D0
     xor [bx], cl            ; place food item and check if position was empty by applying XOR with CL (assumed to be 0xFF)
+    jp .rand                ; if position was occupied by snake or wall in food generation => try again, if we came from main loop PF=0
+    pop di                  ; restore actual head position
 .input:                     ; handle keyboard input
     mov bx, 0x7D0           ; initialize BX to screen size (40x25x2 bytes)
-    jp .food                ; if position was occupied by snake or wall in food generation => try again, if we came from main loop PF=0
 .move:                      ; dummy label for jumping back to input evaluation
     in al, 0x60             ; read scancode from keyboard controller - bit 7 is set in case key was released
 %ifdef NONUMPAD

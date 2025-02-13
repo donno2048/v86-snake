@@ -11,7 +11,7 @@ window.onload = function() {
             url: "main",
         },
     });
-    window.emulator.add_listener("emulator-ready", () => setInterval(window.emulator.v86.cpu.main_loop, 1000));
+    window.emulator.add_listener("emulator-ready", () => setInterval(window.emulator.v86.cpu.cycle_internal, 100));
 }
 
 function up() {
