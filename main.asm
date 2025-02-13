@@ -34,7 +34,7 @@ start:                      ; reset game
     lea sp, [bp+si]         ; set stack pointer (tail) to current head pointer
 .food:                      ; create new food item
     push di                 ; save old DI before overwriting for randomization
-.rand:                      ; lots of code to randomize food positions is better than initializing the PIC controller
+.rand:                      ; lots of code to randomize food positions is better than initializing the PIT chip
     xchg di, bx             ; alternate BX between head position (not to iterate over the same food locations) and the end of the screen
     dec bh                  ; decreasing BH for randomization ensures BX is still divisble by 2 and if the snake isn't filling all the possible options, below 0x7D0
     xor [bx], cl            ; place food item and check if position was empty by applying XOR with CL (assumed to be 0xFF)
