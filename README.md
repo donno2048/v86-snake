@@ -12,7 +12,8 @@ This is a BIOS only snake game that works in [v86](https://github.com/copy/v86) 
 
 ### Online demo
 
-You can try the game in the [online demo](https://donno2048.github.io/v86-snake/), which updates for every change to [`bios.asm`](./bios.asm). Use the numpad arrow keys on PC or swipe on mobile.
+You can try the game in the [online demo](https://donno2048.github.io/v86-snake/).
+Use the numpad arrow keys on PC or swipe on mobile.
 
 ### Self-hosting
 
