@@ -1,5 +1,4 @@
 #!/bin/sh
-
 set -e
-nasm -f bin main.asm -o demo/main.raw
+nasm -f bin bios.asm -o demo/bios.raw
 python3 -m http.server -d demo

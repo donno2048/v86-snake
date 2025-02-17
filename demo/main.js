@@ -5,7 +5,7 @@ window.onload = function() {
         wasm_path: "./v86.wasm",
         screen_container: document.getElementById("screen_container"),
         bios: {
-            url: "main.raw",
+            url: "bios.raw",
         },
         disable_mouse: true,
     });
