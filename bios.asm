@@ -44,10 +44,6 @@ start:                      ; reset game
     mov bx, 0x7D0           ; initialize BX to screen size (40x25x2 bytes)
 .move:                      ; dummy label for jumping back to input evaluation
     in al, 0x60             ; read scancode from keyboard controller - bit 7 is set in case key was released
-%ifdef NONUMPAD
-    cmp al, 0xE0            ; if AL is the byte appended when using the keypad
-    je .move                ; ignore it
-%endif
     imul ax, BYTE 0xA       ; we want to map scancodes for arrow up (0x48/0xC8), left (0x4B/0xCB), right (0x4D/0xCD), down (0x50/0xD0) to movement offsets
     aam 0x14                ; IMUL (AH is irrelevant here), AAM and AAD with some magic constants maps up => -80, left => -2, right => 2, down => 80
     aad 0x44                ; using arithmetic instructions is more compact than checks and conditional jumps
@@ -67,5 +63,5 @@ start:                      ; reset game
     mov [bx], ah            ; clear old tail position on screen
     jnp .input              ; loop to keyboard input, PF=0 from SUB
 times ($$-$+0xFFFC) db 0x00 ; fill with zeros
-nop
-jmp $$
+nop                         ; this is only required because of a V86 bug (https://github.com/copy/v86/issues/1253)
+jmp $$                      ; so I'll ignore this section for now but will remove it when the bug is fixed
