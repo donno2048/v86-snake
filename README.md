@@ -1,4 +1,4 @@
-# V86-Snake
+# V86-Snake - archived as for donno2048/snake-bios#4
 
 This project was inspired by another project of mine [a BIOS only snake game](https://github.com/donno2048/snake-bios) which I wasn't able to show a demo of because I couldn't find any online tool to imitate QEMU.
 
